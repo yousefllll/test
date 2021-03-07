@@ -38,6 +38,10 @@ return [
      //////////////////////
      'product characteristics' => 'Product features',
      'add a new characteristic' => 'Add a new feature',
+     ////////////////////
+    'main slider' => 'Main slider',
+    'add slider photo' => 'Add slider photo',
+    //////////////////
 
 
 

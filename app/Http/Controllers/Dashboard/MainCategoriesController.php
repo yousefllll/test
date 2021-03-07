@@ -23,27 +23,21 @@ class MainCategoriesController extends Controller
             ->with('childrenCategories')
             ->orderBy('id','DESC')
             ->get();
-
         $categories_table = Category::with('_parent')
             ->with('childrenCategories')
             ->orderBy('id','DESC')
             ->get();
-
         if ($request->ajax()) {
-
             return DataTables::of($categories_table)
                 ->addIndexColumn()
-
                 ->addColumn('parent_id', function ($row) {
                     return $row->_parent->name ?? '--';
                 })
-
                 ->addColumn('is_active', function ($row) {
                     return $row->is_active == 1 ? _('translate-admin/category.active') : _('translate-admin/category.not active');
                 })
                 ->addColumn('photo', function ($row) {
                     return '<img src="' . $row->photo . '" border="0" style="width: 100px; height: 90px;" class="img-rounded" align="center" />';
-
                 })
                 ->addColumn('action', function ($row) {
                     $url = route('edit.category', $row->id);
@@ -54,11 +48,7 @@ class MainCategoriesController extends Controller
                 })
                 ->rawColumns(['photo', 'action'])
                 ->make(true);
-
-
         }
-
-
         return view('admin.categories.index', compact('categories'));
     }*/
 
@@ -128,29 +118,36 @@ class MainCategoriesController extends Controller
     }
 
 
-    public  function update(MainCategoryRequest $request,$id){
+    public function update(MainCategoryRequest $request,$id)
+    {
+        try {
+            //validation
 
-        try{
-            $category=Category::find($id);
-            if(!$category){
-                return redirect()->route('admin.maincategories')->with(['error'=>'هذا القسم غير موجود']);
-            }else{
-                $requestData=$request->except(['_token','_method']);
-                $requestData["is_active"]=$request->has("is_active")?1:0;
-                DB::beginTransaction();
-                $category->update($requestData);
-                DB::commit();
-                return redirect()->route('admin.maincategories')->with([
-                    'success'=>'تم تحديث  القسم بنجاح'
-                ]);
-            }
+            //update DB
+
+
+            $category = Category::find($id);
+
+            if (!$category)
+                return redirect()->route('admin.maincategories')->with(['error' => 'هذا القسم غير موجود']);
+
+            if (!$request->has('is_active'))
+                $request->request->add(['is_active' => 0]);
+            else
+                $request->request->add(['is_active' => 1]);
+
+            $category->update($request->except('_token'));
+
+            //save translations
+            $category->name = $request->name;
+            $category->save();
+
+            return redirect()->route('admin.maincategories')->with(['success' => 'تم ألتحديث بنجاح']);
+        } catch (\Exception $ex) {
+
+            return redirect()->route('admin.maincategories')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
-        catch (\Exception $exception){
-            DB::rollBack();
-            return redirect()->route('admin.maincategories')->with([
-                'error'=>'هناك خطأ ما يرجى المحاولة مرة أخرى'
-            ]);
-        }
+
     }
 
 

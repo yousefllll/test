@@ -88,7 +88,7 @@ class RegisterController extends Controller
             //save this code in verifcation table
               //done
              //send code to user mobile by sms gateway   // note  there are no gateway credentails in config file
-             // app(VictoryLinkSms::class) -> sendSms($user -> mobile,$message);
+             # app(VictoryLinkSms::class) -> sendSms($user -> mobile,$message);
             DB::commit();
             return  $user;
         //send to user  mobile

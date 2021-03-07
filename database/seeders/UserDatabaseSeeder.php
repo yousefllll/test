@@ -16,7 +16,7 @@ class UserDatabaseSeeder extends Seeder
     {
          Admin::create([
               'name'  => 'Yousef N',
-              'email'  => 'yousefnader2003@gmail.com',
+              'mobile'  => '0500861853',
               'password'  => bcrypt('yousef2003'),
 
          ]);

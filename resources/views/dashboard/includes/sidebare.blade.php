@@ -20,6 +20,7 @@
                     </li>
                 </ul>
             </li>
+            
 
 
             <li class="nav-item"><a href=""><i class="la la-navicon"></i>
@@ -130,8 +131,14 @@
                         </ul>
                     </li>
 
-                    
-
+                    <li><a class="menu-item" href="#"><i class="la la-photo"></i><span class="menu-title"
+                           data-i18n="nav.templates.vert.main"> {{__('admin/sidebar.main slider')}} </a>
+                        <ul class="menu-content">
+                            <li><a class="menu-item" href="{{route('admin.sliders.create')}}"
+                                   data-i18n="nav.templates.vert.classic_menu">{{__('admin/sidebar.add slider photo')}}</a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
             </li>

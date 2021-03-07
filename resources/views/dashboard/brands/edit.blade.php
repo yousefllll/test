@@ -55,7 +55,7 @@
                                                 <div class="text-center">
                                                     <img
                                                         src="{{$brand  -> photo}}"
-                                                        class="rounded  height-250" alt="{{__('admin/setting.trademarks image')}}">
+                                                        class="swass" alt="{{__('admin/setting.trademarks image')}}">
                                                 </div>
                                             </div>
 

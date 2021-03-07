@@ -38,6 +38,10 @@ return [
     //////////////////////
     'product characteristics' => 'خصائص المنتج',
     'add a new characteristic' => 'أضف خاصية جديدة',
+    ////////////////////
+    'main slider' => 'شريط الصور',
+    'add slider photo' => 'إضافة صورة للشريط',
+    //////////////////
 
 
 ];
